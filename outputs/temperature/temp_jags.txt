@@ -1,0 +1,10 @@
+model
+      {
+      for (i in 1:N){
+      mu[i] <- a_est + Temp * b_est
+      iso[i] ~ dnorm(mu[i], sigma)
+      }
+      a_est ~ dnorm(a_obs, a_var)
+      b_est ~ dnorm(b_obs, b_var)
+      Temp ~ dunif(-5, 35)
+      }

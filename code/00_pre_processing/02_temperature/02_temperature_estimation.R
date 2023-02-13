@@ -11,36 +11,30 @@ library(here)
 
 # Load data --------------------------------------------------------------------
 
-component <- read.csv(here("Outputs",
-                           "04_C_resp_Components",
-                           "Compiled",
-                           "All_Data.csv"))
+component <- read.csv(here("data",
+                           "alewijnse_master_data.csv"))
 
 # Calculate difference between d18O_oto and d18O_water -------------------------
 
-component$d18O_diff <- component$oto_d18O - component$d18O_SW_mean
+component$d18o_diff <- component$oto_d18o_mean - component$water_d18o_mean
 glimpse(component)
 
 # Filter out those without d18O
-
-component <- filter(component, !is.na(d18O_diff))
-
+component <- filter(component, !is.na(d18o_diff))
 glimpse(component)
 
 # Create temperature function --------------------------------------------------
 
 # Enables you to loop the temperature function over the whole dataset
-
-Temp_est <- function(data_set, Data_ID){
-  fish_1 <- dplyr::filter(data_set, ID == Data_ID)
+temp.est <- function(data_set, Data_ID){
+  fish_1 <- dplyr::filter(data_set, specimen_id == Data_ID)
   # Set priors/data
   
   iso_list <- list(
-    iso = fish_1$d18O_diff, # Difference between d18O_oto and d18O_water
-    sigma = 1/(fish_1$oto_d18O_SD)^2,
+    iso = fish_1$d18o_diff, # Difference between d18O_oto and d18O_water
+    sigma = 1/(fish_1$oto_d18o_sd)^2,
     
     # Parameters from Hoie et al. 2004
-    
     a_obs = 3.90,
     a_var = 1/(0.24^2),
     b_obs = -0.20,
@@ -61,11 +55,15 @@ Temp_est <- function(data_set, Data_ID){
       a_est ~ dnorm(a_obs, a_var)
       b_est ~ dnorm(b_obs, b_var)
       Temp ~ dunif(-5, 35)
-      }", file = "Outputs/06_Temp_Calculations/Temp_Jags.txt")
+      }", file = here("outputs",
+                      "temperature",
+                      "temp_jags.txt"))
 
   # Run JAGS model
   
-  jags_mod <- jags.model(file = "Outputs/06_Temp_Calculations/Temp_JAGS.txt", data = iso_list, inits = inits, n.chains = 3, n.adapt = 50000)
+  jags_mod <- jags.model(file = here("outputs",
+                                     "temperature",
+                                     "temp_jags.txt"), data = iso_list, inits = inits, n.chains = 3, n.adapt = 50000)
   
   output <- coda.samples(jags_mod,
                          c("Temp"),
@@ -101,17 +99,14 @@ Temp_est <- function(data_set, Data_ID){
   ## Get diagnostics
   
   # ESS
-  
   samp_size <- as.data.frame(effectiveSize(output))
   samp_size
   
   # Gelman-Rubin diagnostic
-  
   r_hat <- gelman.diag(output)$psrf
   r_hat
   
   # Geweke's diagnostic
-  
   geweke <- geweke.diag(output)
   
   geweke_1 <- geweke[[1]]
@@ -128,11 +123,17 @@ Temp_est <- function(data_set, Data_ID){
   
   capture.output(c("r_hat", r_hat, 
                    "geweke", geweke_z_scores, 
-                   "ESS", samp_size), file = paste("Outputs/06_Temp_Calculations/Diagnostics/Diagnostics_", Data_ID, ".txt", sep = ""))
+                   "ESS", samp_size), file = paste0(here("outputs",
+                                                        "temperature",
+                                                        "diagnostics",
+                                                        "diagnostics_"), Data_ID, ".txt", sep = ""))
   
   # Traceplot
   
-  svg(file = paste("Outputs/06_Temp_Calculations/Traceplots/Traceplot_", Data_ID, ".svg", sep = ""), width = 12)
+  svg(file = paste0(here("outputs",
+                         "temperature",
+                         "traceplots",
+                         "traceplots_"), Data_ID, ".svg", sep = ""), width = 12)
   plot(output)
   dev.off()
   
@@ -142,32 +143,29 @@ Temp_est <- function(data_set, Data_ID){
 
 # Test with a single individual ------------------------------------------------
 
-Temp_est(component, "AAG_1")
+temp.est(component, "AAG_2")
 
 # Loop over whole dataset
-
 Temp_summary <- data.frame()
-
-for(i in 1:nrow(fish)){
-  Temp <- with(fish[i,],
-       Temp_est(Data_ID))
+for(i in 1:nrow(component)){
+  Temp <- temp.est(component[i, ], component[i, ]$specimen_id)
   Temp_summary <- rbind(Temp_summary, Temp)
 }
 
+# Check outputs
 ggplot(Temp_summary, aes(x = mean_Temp)) +
   geom_histogram()
 
 ggplot(Temp_summary, aes(x = SE_Temp)) +
   geom_histogram()
 
-#### Join to data ####
-
-fish_Temp <- left_join(fish, Temp_summary, by = "Data_ID")
+# Join to data
+fish_temp <- left_join(component, Temp_summary, by = c("specimen_id" = "Data_ID"))
 
 # Filter out those without d18O
-
-fish_Temp_tidy <- filter(fish_Temp, !is.na(oto_d18O))
+fish_temp_tidy <- filter(fish_temp, !is.na(oto_d18o_mean))
 
 # Write into file
-
-write.csv(fish_Temp_tidy, "Outputs/06_Temp_Calculations/All_Temp.csv", row.names = F)
+write.csv(fish_temp_tidy, here("outputs",
+                               "temperature",
+                               "all_temperature.csv"), row.names = F)
