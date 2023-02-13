@@ -5,10 +5,8 @@ library(here)
 
 # Load data --------------------------------------------------------------------
 
-C_resp <- read.csv(here::here("Outputs",
-                              "07_C_resp_Models",
-                              "Edited_Data",
-                              "master_data_no_outliers.csv"))
+C_resp <- read.csv(here::here("data",
+                              "alewijnse_master_data.csv"))
 
 # Convert to mass-specific O2 consumption --------------------------------------
 
@@ -23,55 +21,48 @@ mg_O2_kg <- function(C_resp, C, k){
 # Set parameters
 
 k <- 0.004 # Decay constant - Martino et al. 2020
-C <- max(C_resp$mean_C_resp) + 0.01 # Upper bound
+C <- max(C_resp$c_resp_mean) + 0.01 # Upper bound
 
 # Convert
 
-C_resp$O2_mg_kg <- mg_O2_kg(C_resp$mean_C_resp, C, k)
+C_resp$o2_mg_kg <- mg_O2_kg(C_resp$c_resp_mean, C, k)
 
 # Explore outcomes -------------------------------------------------------------
 
 # Histogram
-
-ggplot(data = C_resp, aes(x = O2_mg_kg)) +
+ggplot(data = C_resp, aes(x = o2_mg_kg)) +
   geom_histogram()
 
 # Plot with body mass
-
-ggplot(data = C_resp, aes(x = log10(Body_Mass), y = O2_mg_kg)) +
+ggplot(data = C_resp, aes(x = log10(body_mass), y = o2_mg_kg)) +
   geom_point()
 
 # Plot with temperature
-
-ggplot(data = C_resp, aes(x = mean_Temp, y = O2_mg_kg)) +
+ggplot(data = C_resp, aes(x = temp_mean, y = o2_mg_kg)) +
   geom_point()
 
 # Convert to whole organism oxygen consumption ---------------------------------
 
-C_resp$O2_mg_ind <- C_resp$O2_mg_kg * (C_resp$Body_Mass/1000)
+C_resp$o2_mg_ind <- C_resp$o2_mg_kg * (C_resp$body_mass/1000)
 
 # Explore outcomes -------------------------------------------------------------
 
 # Histogram
-
-ggplot(data = C_resp, aes(x = log10(O2_mg_ind))) +
+ggplot(data = C_resp, aes(x = log10(o2_mg_ind))) +
   geom_histogram()
 
 # Plot with body mass
-
-ggplot(data = C_resp, aes(x = log10(Body_Mass), y = log10(O2_mg_ind),
-                          col = mean_Temp)) +
+ggplot(data = C_resp, aes(x = log10(body_mass), y = log10(o2_mg_ind),
+                          col = temp_mean)) +
   geom_point()
 
 # Plot with temperature
-
-ggplot(data = C_resp, aes(x = mean_Temp, y = log10(O2_mg_ind))) +
+ggplot(data = C_resp, aes(x = temp_mean, y = log10(o2_mg_ind))) +
   geom_point()
 
 # Save ------------------------------------------------------------------------
 
-write.csv(C_resp, here("Outputs",
-                       "07_C_resp_Models",
-                       "Edited_Data",
-                       "Oxygen_Consumption.csv"),
+write.csv(C_resp, here("outputs",
+                       "oxygen_consumption",
+                       "alewijnse_master_data_o2_consumption.csv"),
           row.names = F)
