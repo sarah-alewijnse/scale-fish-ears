@@ -1,6 +1,7 @@
 # Interspecific body mass and temperature scaling of the field metabolic rates of marine teleost fishes
 
 Author(s): Sarah Alewijnse
+
 Contact: sarah.alewijnse@cefas.gov.uk
 
 This repository contains the code used in this paper.
