@@ -2,146 +2,134 @@
 
 # Original code by Natalie Cooper
 
-# Load libraries
+# Load libraries ---------------------------------------------------------------
 
 library(fishtree)
 library(ape)
 library(tidyverse)
 library(phytools)
+library(here)
 
-# Read species in list
+# Get phylogeny ----------------------------------------------------------------
 
-fish <- read.csv("Data/04_Species_Metadata/Ecology_Data/Ecol_Table/Ecol_Table_Final.csv")
+# Read in species
+fish <- read.csv(here("data",
+                      "alewijnse_master_data.csv"))
 
 # Add in underscore
-
-fish <- mutate(fish, Species = str_replace_all(Species, " ", "_"))
+fish <- mutate(fish, species = str_replace_all(species, " ", "_"))
 
 # Extract chronogram (branch lengths = dates) of your species
-
-fish_tree <- fishtree_phylogeny(species = fish$Species, type = "chronogram")
+fish_tree <- fishtree_phylogeny(species = fish$species, type = "chronogram")
 str(fish_tree)
 
 # Quick plot :)
 
-plot(fish_tree, no.margin = TRUE, cex = 0.5)
+plot(fish_tree, no.margin = TRUE, cex = 0.5, type = "fan")
 
-# Run checks
+# Run checks -------------------------------------------------------------------
 
 is.rooted(fish_tree)
 is.binary(fish_tree)
 is.ultrametric(fish_tree)
 
+# Force to be ultrametric
 fish_tree <- force.ultrametric(fish_tree)
 is.ultrametric(fish_tree)
 
-# Get missing species
+# Get missing species ----------------------------------------------------------
 
-missing <- setdiff(fish$Species, fish_tree$tip.label)
+missing <- setdiff(fish$species, fish_tree$tip.label)
 missing
 
-#### Spelling Error ####
+## Fix missing -----------------------------------------------------------------
 
-## HMA - Hoplostethus mediterraneus
+# HMA - Hoplostethus mediterraneus
+fish$species[fish$species == "Hoplostethus_mediterraneus"] <- "Hoplostethus_mediterraneus_mediterraneus"
 
-fish$Species[fish$Species == "Hoplostethus_mediterraneus"] <- "Hoplostethus_mediterraneus_mediterraneus"
+# AGE - Arripis georgiana
+fish$species[fish$species == "Arripis_georgiana"] <- "Arripis_georgianus"
 
-## AGE - Arripis georgiana
+# PAU - Pagrus auratus
+fish$species[fish$species == "Pagrus_auratus"] <- "Chrysophrys_auratus"
 
-fish$Species[fish$Species == "Arripis_georgiana"] <- "Arripis_georgianus"
+# Substitute monophyletic species ----------------------------------------------
 
-## PAU - Pagrus auratus
-
-fish$Species[fish$Species == "Pagrus_auratus"] <- "Chrysophrys_auratus"
-
-#### Monophyletic ####
-
-## IDO - Ijimaia doelfelini
-
-family_IDO <- fish %>% filter(Species == "Ijimaia_dofleini") %>% pull(Family)
+## IDO - Ijimaia doelfelini ====================================================
+family_IDO <- "Ateleopodidae"
 tree_IDO <- fishtree_phylogeny(rank = family_IDO)
 plot(tree_IDO, no.margin = TRUE)
 
 # Replace an Ijimaia with IDO
+fish <- mutate(fish, species = str_replace(species, "Ijimaia_dofleini", "Ijimaia_loppei"))
 
-fish <- mutate(fish, Species = str_replace(Species, "Ijimaia_dofleini", "Ijimaia_loppei"))
-
-## BDU - Bathypterois dubius
-
-family_BDU <- fish %>% filter(Species == "Bathypterois_dubius") %>% pull(Family)
+## BDU - Bathypterois dubius ===================================================
+family_BDU <- "Ipnopidae"
 tree_BDU <- fishtree_phylogeny(rank = family_BDU)
 plot(tree_BDU, no.margin = TRUE)
 
 # Replace a Bathypterois with BDU
+fish <- mutate(fish, species = str_replace(species, "Bathypterois_dubius", "Bathypterois_grallator"))
 
-fish <- mutate(fish, Species = str_replace(Species, "Bathypterois_dubius", "Bathypterois_grallator"))
-
-## BNI - Bathygadus nipponicus
-
-family_BNI <- fish %>% filter(Species == "Bathygadus_nipponicus") %>% pull(Family)
+## BNI - Bathygadus nipponicus =================================================
+family_BNI <- "Macrouridae"
 tree_BNI <- fishtree_phylogeny(rank = family_BNI, type = "chronogram_mrca")
 plot(tree_BNI, no.margin = TRUE, cex = 0.5, type = "fan")
 
-fish <- mutate(fish, Species = str_replace(Species, "Bathygadus_nipponicus", "Bathygadus_favosus"))
+# Replace Bathygadus with BNI
+fish <- mutate(fish, species = str_replace(species, "Bathygadus_nipponicus", "Bathygadus_favosus"))
 
-## HLE - Hymenocephalus lethonemus
-
-family_HLE <- fish %>% filter(Species == "Hymenocephalus_lethonemus") %>% pull(Family)
+## HLE - Hymenocephalus lethonemus =============================================
+family_HLE <- "Macrouridae"
 tree_HLE <- fishtree_phylogeny(rank = family_HLE, type = "chronogram_mrca")
 plot(tree_HLE, no.margin = TRUE, cex = 0.5, type = "fan")
 
+# Replace a Hymenocephalus with HLE
 fish <- mutate(fish, Species = str_replace(Species, "Hymenocephalus_lethonemus", "Hymenocephalus_italicus"))
 
-#### No information ####
+# Remove those with no information ---------------------------------------------
 
-## Remove SGR 
+# SGR
+fish <- filter(fish, spp_code != "SGR")
 
-fish <- filter(fish, Spp_Code != "SGR")
+# SKU
+fish <- filter(fish, spp_code != "SKU")
 
-## Remove SKU
+# CLA
+fish <- filter(fish, spp_code != "CLA")
 
-fish <- filter(fish, Spp_Code != "SKU")
+# LCO
+fish <- filter(fish, spp_code != "LCO")
 
-## Remove CLA
+# Add supporting additions from closely related species ------------------------
 
-fish <- filter(fish, Spp_Code != "CLA")
+# LGR
+fish$species[fish$species == "Lycodes_gracilis"] <- "Lycodes_palearis"
 
-## Remove LCO
+# CGL
+fish$species[fish$species == "Cetonurus_globiceps"] <- "Ventrifossa_garmani"
 
-fish <- filter(fish, Spp_Code != "LCO")
-
-#### Supporting additions ####
-
-fish$Species[fish$Species == "Lycodes_gracilis"] <- "Lycodes_palearis"
-
-fish$Species[fish$Species == "Cetonurus_globiceps"] <- "Ventrifossa_garmani"
-
-#### Update tree ####
-
-fish_tree <- fishtree_phylogeny(species = fish$Species, type = "chronogram")
+# Update tree
+fish_tree <- fishtree_phylogeny(species = fish$species, type = "chronogram")
 str(fish_tree)
-plot(fish_tree, cex = 0.5)
+plot(fish_tree, cex = 0.5, type = "fan")
 
 # Make ultrametric
-
 fish_tree <- force.ultrametric(fish_tree)
 is.ultrametric(fish_tree)
 
 # View species
-
 spp <- fish_tree$tip.label
-view(spp)
+spp
 
-#### Adding species ####
+# Add species ------------------------------------------------------------------
 
-## SLE - Saurida lessepsianus
-
-family_SLE <- fish %>% filter(Species == "Saurida_lessepsianus") %>% pull(Family)
+## SLE - Saurida lessepsianus ==================================================
+family_SLE <- "Synodontidae"
 tree_SLE <- fishtree_phylogeny(rank = family_SLE, type = "chronogram_mrca")
 plot(tree_SLE)
 
 # Add next to SUN
-
 fish_tree <- bind.tip(tree = fish_tree, 
                         tip.label = "Saurida_lessepsianus",
                         where = which(fish_tree$tip.label == "Saurida_undosquamis"), 
@@ -150,15 +138,12 @@ plot(fish_tree, no.margin = T, cex = 0.5)
 
 is.ultrametric(fish_tree)
 
-## HMO - Helicolenus mouchezi
-
-family_HMO <- fish %>% filter(Species == "Helicolenus_mouchezi") %>% pull(Family)
+## HMO - Helicolenus mouchezi ==================================================
+family_HMO <- "Sebastidae"
 tree_HMO <- fishtree_phylogeny(rank = family_HMO)
-
 plot(tree_HMO, no.margin = TRUE)
 
 # Add next to HDA
-
 fish_tree <- bind.tip(fish_tree, 
                       tip.label = "Helicolenus_mouchezi",
                       where = which(fish_tree$tip.label == "Helicolenus_dactylopterus"), 
@@ -167,14 +152,12 @@ plot(fish_tree, no.margin = T, cex = 0.5)
 
 is.ultrametric(fish_tree)
 
-## LGR - Lycodes gracilis
-
-family_LGR <- fish %>% filter(Species == "Lycodes_gracilis") %>% pull(Family)
+## LGR - Lycodes gracilis ======================================================
+family_LGR <- "Zoarcidae"
 tree_LGR <- fishtree_phylogeny(rank = family_LGR, type = "chronogram_mrca")
 plot(tree_LGR, no.margin = T, cex = 0.5)
 
 # Add next to Lycodes palearis
-
 fish_tree <- bind.tip(fish_tree, 
                       tip.label = "Lycodes_gracilis",
                       where = which(fish_tree$tip.label == "Lycodes_palearis"), 
@@ -182,18 +165,17 @@ fish_tree <- bind.tip(fish_tree,
 plot(fish_tree, no.margin = T, cex = 0.5) 
 
 # Remove Lycodes palearis
-
 fish_tree <- drop.tip(fish_tree, "Lycodes_palearis")
 plot(fish_tree, no.margin = T, cex = 0.5) 
 
 is.ultrametric(fish_tree)
 
-## CGL - Cetonurus globiceps
-
-family_CGL <- fish %>% filter(Species == "Lycodes_gracilis") %>% pull(Family)
+## CGL - Cetonurus globiceps ===================================================
+family_CGL <- "Macrouridae"
 tree_CGL <- fishtree_phylogeny(rank = family_CGL, type = "chronogram_mrca")
 plot(tree_CGL, no.margin = T, cex = 0.5)
 
+# Add next to Ventrifossa garmani
 fish_tree <- bind.tip(fish_tree,
                       tip.label = "Cetonurus_globiceps",
                       where = which(fish_tree$tip.label == "Ventrifossa_garmani"),
@@ -201,58 +183,52 @@ fish_tree <- bind.tip(fish_tree,
 plot(fish_tree, no.margin = T, cex = 0.5)
 
 # Remove Ventrifossa garmani
-
 fish_tree <- drop.tip(fish_tree, "Ventrifossa_garmani")
 plot(fish_tree, no.margin = T, cex = 0.5) 
 
 is.ultrametric(fish_tree)
 
-#### Put correct names back ####
+# Put correct names back -------------------------------------------------------
 
 # IDO
-
 fish_tree$tip.label <- gsub(fish_tree$tip.label, 
                            pattern = "Ijimaia_loppei", 
                            replacement = "Ijimaia_dofleini")
 
 # HLE
-
 fish_tree$tip.label <- gsub(fish_tree$tip.label, 
                             pattern = "Hymenocephalus_italicus", 
                             replacement = "Hymenocephalus_lethonemus")
 
 # BNI
-
 fish_tree$tip.label <- gsub(fish_tree$tip.label, 
                             pattern = "Bathygadus_favosus", 
                             replacement = "Bathygadus_nipponicus")
 
 # BDU
-
 fish_tree$tip.label <- gsub(fish_tree$tip.label, 
                             pattern = "Bathypterois_grallator", 
                             replacement = "Bathypterois_dubius")
 
 # View
-
 plot(fish_tree, no.margin = T, cex = 0.7, type = "fan")
 
-#### Final checks ####
+# Final checks -----------------------------------------------------------------
 
-fish <- read.csv("Data/04_Species_Metadata/Ecology_Data/Ecol_Table/Ecol_Table_Final.csv")
-fish <- mutate(fish, Species = str_replace_all(Species, " ", "_"))
+fish <- read.csv(here("data",
+                      "alewijnse_master_data.csv"))
+fish <- mutate(fish, species = str_replace_all(species, " ", "_"))
 
-missing <- setdiff(fish$Species, fish_tree$tip.label)
-view(missing)
-  # Should only be seven: AGE, PAU and HME (spelling), and SGR, CLA, LCO and SKU (removed)
+missing <- setdiff(fish$species, fish_tree$tip.label)
+missing # Should only be seven: AGE, PAU and HME (spelling), and SGR, CLA, LCO and SKU (removed)
 
 # Make ultrametric
-
 is.ultrametric(fish_tree)
 is.rooted(fish_tree)
 is.binary(fish_tree)
 plot(fish_tree, no.margin = T, cex = 0.7)
 
-#### Save ####
-
-write.nexus(fish_tree, file = "Phylogenies/My_Fish_Tree.nex")
+# Save -------------------------------------------------------------------------
+write.nexus(fish_tree, file = here("outputs",
+                                   "phylogeny",
+                                   "scaling_fish_tree.nex"))
