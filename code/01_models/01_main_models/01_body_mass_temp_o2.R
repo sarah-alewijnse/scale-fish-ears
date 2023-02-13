@@ -16,7 +16,7 @@ library(here)
 source(here("code",
             "00_pre_processing",
             "03_oxygen_consumption",
-            "02_scaling_dataset.R"))
+            "02_scaling_dataset_main.R"))
 # Ignore duplicated data warning
 
 # Get relatedness matrix 
