@@ -1,0 +1,251 @@
+#NEXUS
+[R-package APE, Thu Jul 29 10:14:51 2021]
+
+BEGIN TAXA;
+	DIMENSIONS NTAX = 119;
+	TAXLABELS
+		Exocoetus_volitans
+		Solea_solea
+		Pleuronectes_platessa
+		Limanda_limanda
+		Hippoglossoides_platessoides
+		Microstomus_kitt
+		Glyptocephalus_cynoglossus
+		Lepidorhombus_whiffiagonis
+		Scophthalmus_maximus
+		Trachurus_trachurus
+		Seriola_dumerili
+		Coryphaena_hippurus
+		Makaira_nigricans
+		Kajikia_albida
+		Gobius_bucchichi
+		Mullus_barbatus_barbatus
+		Upeneus_moluccensis
+		Scomber_colias
+		Scomber_scombrus
+		Thunnus_orientalis
+		Thunnus_maccoyii
+		Thunnus_albacares
+		Acanthocybium_solandri
+		Aphanopus_carbo
+		Arripis_georgianus
+		Artediellus_atlanticus
+		Triglops_nybelini
+		Cyclopterus_lumpus
+		Lycodes_gracilis
+		Sebastes_melanops
+		Sebastes_mentella
+		Helicolenus_dactylopterus
+		Helicolenus_mouchezi
+		Epinephelus_multinotatus
+		Epinephelus_adscensionis
+		Epinephelus_morio
+		Hyporthodus_nigritus
+		Champsocephalus_gunnari
+		Dissostichus_eleginoides
+		Epigonus_telescopus
+		Doederleinia_berycoides
+		Lutjanus_fulviflamma
+		Lutjanus_sebae
+		Pristipomoides_multidens
+		Pristipomoides_filamentosus
+		Plagiogeneion_rubiginosum
+		Chaetodon_ulietensis
+		Diplodus_vulgaris
+		Oblada_melanura
+		Pagrus_caeruleostictus
+		Pagellus_erythrinus
+		Chrysophrys_auratus
+		Lethrinus_lentjan
+		Lethrinus_harak
+		Acanthurus_triostegus
+		Coris_julis
+		Cataetyx_laticeps
+		Beryx_splendens
+		Hoplostethus_mediterraneus_mediterraneus
+		Hoplostethus_atlanticus
+		Holocentrus_adscensionis
+		Coelorinchus_fasciatus
+		Coelorinchus_caelorhincus
+		Coryphaenoides_acrolepis
+		Coryphaenoides_paramarshalli
+		Coryphaenoides_guentheri
+		Coryphaenoides_rupestris
+		Coryphaenoides_marginatus
+		Coryphaenoides_armatus
+		Coryphaenoides_profundicolus
+		Coryphaenoides_mediterraneus
+		Nezumia_aequalis
+		Nezumia_duodecim
+		Malacocephalus_laevis
+		Cetonurus_globiceps
+		Hymenocephalus_lethonemus
+		Bathygadus_nipponicus
+		Gadus_morhua
+		Boreogadus_saida
+		Merlangius_merlangus
+		Melanogrammus_aeglefinus
+		Pollachius_virens
+		Micromesistius_poutassou
+		Molva_dypterygia
+		Phycis_blennoides
+		Merluccius_merluccius
+		Lepidion_eques
+		Antimora_rostrata
+		Mora_moro
+		Trachyrincus_scabrus
+		Trachyrincus_murrayi
+		Squalogadus_modificatus
+		Protomyctophum_bolini
+		Electrona_carlsbergi
+		Electrona_antarctica
+		Krefftichthys_anderssoni
+		Gymnoscopelus_nicholsi
+		Gymnoscopelus_braueri
+		Lampanyctus_australis
+		Neoscopelus_microchir
+		Bathypterois_dubius
+		Bathysaurus_ferox
+		Saurida_undosquamis
+		Saurida_lessepsianus
+		Ateleopus_japonicus
+		Ijimaia_dofleini
+		Salmo_salar
+		Argentina_silus
+		Sardina_pilchardus
+		Clupea_harengus
+		Sprattus_sprattus
+		Engraulis_encrasicolus
+		Xenodermichthys_copei
+		Rouleina_attrita
+		Alepocephalus_agassizii
+		Alepocephalus_bairdii
+		Conger_conger
+		Synaphobranchus_kaupii
+		Halosauropsis_macrochir
+	;
+END;
+BEGIN TREES;
+	TRANSLATE
+		1	Exocoetus_volitans,
+		2	Solea_solea,
+		3	Pleuronectes_platessa,
+		4	Limanda_limanda,
+		5	Hippoglossoides_platessoides,
+		6	Microstomus_kitt,
+		7	Glyptocephalus_cynoglossus,
+		8	Lepidorhombus_whiffiagonis,
+		9	Scophthalmus_maximus,
+		10	Trachurus_trachurus,
+		11	Seriola_dumerili,
+		12	Coryphaena_hippurus,
+		13	Makaira_nigricans,
+		14	Kajikia_albida,
+		15	Gobius_bucchichi,
+		16	Mullus_barbatus_barbatus,
+		17	Upeneus_moluccensis,
+		18	Scomber_colias,
+		19	Scomber_scombrus,
+		20	Thunnus_orientalis,
+		21	Thunnus_maccoyii,
+		22	Thunnus_albacares,
+		23	Acanthocybium_solandri,
+		24	Aphanopus_carbo,
+		25	Arripis_georgianus,
+		26	Artediellus_atlanticus,
+		27	Triglops_nybelini,
+		28	Cyclopterus_lumpus,
+		29	Lycodes_gracilis,
+		30	Sebastes_melanops,
+		31	Sebastes_mentella,
+		32	Helicolenus_dactylopterus,
+		33	Helicolenus_mouchezi,
+		34	Epinephelus_multinotatus,
+		35	Epinephelus_adscensionis,
+		36	Epinephelus_morio,
+		37	Hyporthodus_nigritus,
+		38	Champsocephalus_gunnari,
+		39	Dissostichus_eleginoides,
+		40	Epigonus_telescopus,
+		41	Doederleinia_berycoides,
+		42	Lutjanus_fulviflamma,
+		43	Lutjanus_sebae,
+		44	Pristipomoides_multidens,
+		45	Pristipomoides_filamentosus,
+		46	Plagiogeneion_rubiginosum,
+		47	Chaetodon_ulietensis,
+		48	Diplodus_vulgaris,
+		49	Oblada_melanura,
+		50	Pagrus_caeruleostictus,
+		51	Pagellus_erythrinus,
+		52	Chrysophrys_auratus,
+		53	Lethrinus_lentjan,
+		54	Lethrinus_harak,
+		55	Acanthurus_triostegus,
+		56	Coris_julis,
+		57	Cataetyx_laticeps,
+		58	Beryx_splendens,
+		59	Hoplostethus_mediterraneus_mediterraneus,
+		60	Hoplostethus_atlanticus,
+		61	Holocentrus_adscensionis,
+		62	Coelorinchus_fasciatus,
+		63	Coelorinchus_caelorhincus,
+		64	Coryphaenoides_acrolepis,
+		65	Coryphaenoides_paramarshalli,
+		66	Coryphaenoides_guentheri,
+		67	Coryphaenoides_rupestris,
+		68	Coryphaenoides_marginatus,
+		69	Coryphaenoides_armatus,
+		70	Coryphaenoides_profundicolus,
+		71	Coryphaenoides_mediterraneus,
+		72	Nezumia_aequalis,
+		73	Nezumia_duodecim,
+		74	Malacocephalus_laevis,
+		75	Cetonurus_globiceps,
+		76	Hymenocephalus_lethonemus,
+		77	Bathygadus_nipponicus,
+		78	Gadus_morhua,
+		79	Boreogadus_saida,
+		80	Merlangius_merlangus,
+		81	Melanogrammus_aeglefinus,
+		82	Pollachius_virens,
+		83	Micromesistius_poutassou,
+		84	Molva_dypterygia,
+		85	Phycis_blennoides,
+		86	Merluccius_merluccius,
+		87	Lepidion_eques,
+		88	Antimora_rostrata,
+		89	Mora_moro,
+		90	Trachyrincus_scabrus,
+		91	Trachyrincus_murrayi,
+		92	Squalogadus_modificatus,
+		93	Protomyctophum_bolini,
+		94	Electrona_carlsbergi,
+		95	Electrona_antarctica,
+		96	Krefftichthys_anderssoni,
+		97	Gymnoscopelus_nicholsi,
+		98	Gymnoscopelus_braueri,
+		99	Lampanyctus_australis,
+		100	Neoscopelus_microchir,
+		101	Bathypterois_dubius,
+		102	Bathysaurus_ferox,
+		103	Saurida_undosquamis,
+		104	Saurida_lessepsianus,
+		105	Ateleopus_japonicus,
+		106	Ijimaia_dofleini,
+		107	Salmo_salar,
+		108	Argentina_silus,
+		109	Sardina_pilchardus,
+		110	Clupea_harengus,
+		111	Sprattus_sprattus,
+		112	Engraulis_encrasicolus,
+		113	Xenodermichthys_copei,
+		114	Rouleina_attrita,
+		115	Alepocephalus_agassizii,
+		116	Alepocephalus_bairdii,
+		117	Conger_conger,
+		118	Synaphobranchus_kaupii,
+		119	Halosauropsis_macrochir
+	;
+	TREE * UNTITLED = [&R] ((((((((((((1:113.225813,((2:71.40689664,(((3:14.43776175,(4:8.9714925,5:8.9714925):5.46626925):5.862886583,(6:13.163229,7:13.163229):7.137419333):45.59561287,(8:41.084149,9:41.084149):24.8121122):5.510635443):11.32684124,(((10:57.573826,11:57.573826):7.6725955,12:65.2464215):10.29170783,(13:3.364828,14:3.364828):72.17330133):7.195608554):30.49207511):1.161155136,(15:111.3572712,((16:46.958805,17:46.958805):61.64087056,((((18:19.781853,19:19.781853):27.08625512,(((20:1.625732,21:1.625732):0.4560115,22:2.0817435):34.30381167,23:36.38555517):10.48255296):19.94020346,24:66.80831158):2.07651306,25:68.88482464):39.71485092):2.757595588):3.029696986):1.695323534,((((((((((26:26.6799015,27:26.6799015):20.30393425,28:46.98383575):12.93672925,29:59.92056505):19.55938867,((30:8.072352,31:8.072352):9.7916085,(32:0.5,33:0.500000046):17.3639605):61.61599317):5.02848894,((((34:19.035146,35:19.035146):1.386215,36:20.421361):8.0906575,37:28.5120185):54.20076088,(38:24.557037,39:24.557037):58.15574237):1.795663232):7.519930951,(40:75.3806035,41:75.3806035):16.64777006):4.303454576,((((42:24.4909395,43:24.4909395):28.38044125,(44:23.421047,45:23.421047):29.45033375):20.13867063,46:73.01005138):2.560934425,47:75.5709858):20.76084233):3.093694248,(((48:31.3327795,49:31.3327795):18.53535825,((50:38.230062,51:38.230062):1.373159,52:39.603221):10.26491675):38.2182933,(53:10.2711625,54:10.2711625):77.81526855):11.33909133):3.68690369,55:103.1124261):9.726251498,56:112.8386776):3.243614101):6.571388139,57:122.6536798):6.990293736,((58:112.8716235,(59:18.81132,60:18.81132):94.0603035):11.97878417,61:124.8504077):4.793565878):8.316261731,(((((62:28.5660525,63:28.5660525):17.57438038,((64:20.50821325,((65:12.91925,66:12.91925):3.1492345,(67:12.918344,68:12.918344):3.1501405):4.43972875):10.32144095,((69:17.286961,70:17.286961):1.686431,71:18.973392):11.8562622):15.31077868):6.570509975,(((72:4.2651645,73:4.2651645):28.552619,(74:28.9601525,75:28.96015254):3.857631):12.27718925,76:45.09497275):7.6159701):15.91788662,77:68.62882947):7.294321471,((((((((78:11.6980535,79:11.6980535):2.19916125,(80:10.103911,81:10.103911):3.79330375):3.517668125,82:17.41488287):17.60758602,83:35.0224689):15.44499052,84:50.46745942):8.813501083,85:59.2809605):8.580693062,86:67.86165356):2.713708632,(((87:8.0772675,88:8.0772675):21.40909575,89:29.48636325):38.12132092,((90:10.144488,91:10.144488):8.707479,92:18.851967):48.75571717):2.967678028):5.347788743):62.03708434):4.035323224,(((((93:31.546948,(94:26.903139,95:26.903139):4.643809):4.3049925,96:35.8519405):44.14010087,(97:9.003775,98:9.003775):70.98826637):5.457520875,99:85.44956225):21.66070411,100:107.1102664):34.88529214):4.053833864,((101:83.1372655,102:83.1372655):49.91287975,(103:0.5,104:0.5):132.5501452):12.99924711):3.097172332,(105:6.478721,106:6.478721):142.6678437):16.38369151,(107:158.384448,108:158.384448):7.145808202):11.94698068,(((109:88.7533215,(110:23.255732,111:23.255732):65.4975895):12.84791433,112:101.6012358):69.50725154,(((113:12.721851,114:12.721851):13.680098,115:26.401949):5.1314,116:31.533349):139.5751384):6.368749511):15.30554568,((117:116.907093,118:116.907093):29.1464055,119:146.0534985):46.72928407);
+END;
