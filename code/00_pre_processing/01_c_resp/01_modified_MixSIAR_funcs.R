@@ -2,13 +2,13 @@
 
 # These MixSIAR functions have been modified to enable them to run in a loop
 
-# Load packages
+# Load package -----------------------------------------------------------------
 
 library(MixSIAR) # Bayesian mixing model for stable isotopes
 
-#### Edit MIXSIAR functions to allow for Looping ####
+# Edit MIXSIAR functions to allow for Looping ----------------------------------
 
-# Edit load_mix_data function
+# load_mix_data function =======================================================
 
 load_mix_data_mod <- function (filename, iso_names, factors, fac_random, fac_nested, 
                                cont_effects) 
@@ -130,9 +130,7 @@ load_mix_data_mod <- function (filename, iso_names, factors, fac_random, fac_nes
               fac_random = fac_random, fac_nested = fac_nested, fere = fere))
 }
 
-save(load_mix_data_mod, file = "Functions/load_mix_data_mod.Rdata")
-
-# Edit load_source_data function
+## Edit load_source_data function ==============================================
 
 load_source_data_mod <-  function (filename, source_factors = NULL, conc_dep, data_type, 
                                    mix) 
@@ -387,9 +385,7 @@ load_source_data_mod <-  function (filename, source_factors = NULL, conc_dep, da
               by_factor = by_factor, data_type = data_type, conc_dep = conc_dep))
 }
 
-save(load_source_data_mod, file = "Functions/load_source_data_mod.Rdata")
-
-# Edit load_discr_data function
+## Edit load_discr_data function ===============================================
 
 load_discr_data_mod <- function (filename, mix) 
 {
@@ -412,6 +408,3 @@ load_discr_data_mod <- function (filename, mix)
                                                           discr_sig_cols])
   return(list(mu = discr_mu, sig2 = discr_sig2))
 }
-
-save(load_discr_data_mod, file = "Functions/load_discr_data_mod.Rdata")
-
