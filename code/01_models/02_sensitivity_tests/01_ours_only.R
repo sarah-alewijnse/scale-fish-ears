@@ -1,4 +1,4 @@
-#### MCMC GLMMs - Oxygen consumption - Scaling ####
+#### MCMC GLMMs - Oxygen consumption - Scaling - our data only ####
 
 # Load packages
 library(tidyverse)
@@ -16,7 +16,7 @@ library(here)
 source(here("code",
             "00_pre_processing",
             "03_oxygen_consumption",
-            "02_scaling_dataset.R"))
+            "03_scaling_dataset_ours_only.R"))
 # Ignore duplicated data warning
 
 # Get relatedness matrix 
@@ -63,8 +63,8 @@ mod_full <- MCMCglmm(ln_o2_mg_kg ~ Z_ln_BM + Z_inv_temp_mean,
 # Save
 saveRDS(mod_full, here("outputs",
                        "models",
-                       "main",
-                       "mass_specific.rds"))
+                       "sensitivity",
+                       "mass_specific_ours.rds"))
 
 # Check summary
 summary(mod_full)
@@ -100,7 +100,7 @@ mod_full <- MCMCglmm(ln_o2_ind ~ Z_ln_body_mass + Z_inv_temp_mean,
 saveRDS(mod_full, here("outputs",
                        "models",
                        "main",
-                       "whole_organism.rds"))
+                       "whole_organism_ours.rds"))
 
 # Check summary
 summary(mod_full)
