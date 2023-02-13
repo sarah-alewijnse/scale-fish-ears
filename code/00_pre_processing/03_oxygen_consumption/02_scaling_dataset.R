@@ -45,10 +45,13 @@ load(here("functions",
           "z_score.Rdata"))
 
 # log body mass
-oxy_data$z_ln_body_mass <- Z.score(oxy_data$ln_body_mass, "ln_body_mass")
+Z_ln_body_mass <- Z.score(oxy_data$ln_body_mass, "ln_body_mass")
 
 # Inverse temp
-oxy_data$z_inv_temp <- Z.score(oxy_data$inv_temp_mean, "inv_temp_mean")
+Z_inv_temp <- Z.score(oxy_data$inv_temp_mean, "inv_temp_mean")
+
+# Bind
+oxy_data <- cbind(oxy_data, Z_ln_body_mass, Z_inv_temp)
 
 # Get species ID ---------------------------------------------------------------
 
@@ -60,7 +63,7 @@ oxy_data$species_id <- oxy_data$species
 
 fish_tree <- read.nexus(here("outputs",
                              "phylogeny",
-                             "My_Fish_Tree.nex"))
+                             "fish_tree.nex"))
 
 # Check tree (should all be true)
 is.rooted(fish_tree)
@@ -101,5 +104,5 @@ new_fish_tree <- fish_stuff$phy
 
 # Remove dropped tips from data
 new_fish_data <- oxy_data
-new_fish_data <- dplyr::filter(new_fish_data, !sciname %in% missing)
+new_fish_data <- dplyr::filter(new_fish_data, !species %in% missing)
 glimpse(new_fish_data)

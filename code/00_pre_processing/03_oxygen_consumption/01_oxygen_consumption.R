@@ -11,7 +11,6 @@ C_resp <- read.csv(here::here("data",
 # Convert to mass-specific O2 consumption --------------------------------------
 
 # Create function
-
 mg_O2_kg <- function(C_resp, C, k){
   a <- C_resp/C
   mg_kg <- -(log(1-a)/k)
@@ -19,12 +18,10 @@ mg_O2_kg <- function(C_resp, C, k){
 }
 
 # Set parameters
-
 k <- 0.004 # Decay constant - Martino et al. 2020
 C <- max(C_resp$c_resp_mean) + 0.01 # Upper bound
 
 # Convert
-
 C_resp$o2_mg_kg <- mg_O2_kg(C_resp$c_resp_mean, C, k)
 
 # Explore outcomes -------------------------------------------------------------
