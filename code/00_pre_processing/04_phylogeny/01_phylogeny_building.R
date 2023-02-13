@@ -85,7 +85,7 @@ tree_HLE <- fishtree_phylogeny(rank = family_HLE, type = "chronogram_mrca")
 plot(tree_HLE, no.margin = TRUE, cex = 0.5, type = "fan")
 
 # Replace a Hymenocephalus with HLE
-fish <- mutate(fish, Species = str_replace(Species, "Hymenocephalus_lethonemus", "Hymenocephalus_italicus"))
+fish <- mutate(fish, species = str_replace(species, "Hymenocephalus_lethonemus", "Hymenocephalus_italicus"))
 
 # Remove those with no information ---------------------------------------------
 
@@ -231,4 +231,4 @@ plot(fish_tree, no.margin = T, cex = 0.7)
 # Save -------------------------------------------------------------------------
 write.nexus(fish_tree, file = here("outputs",
                                    "phylogeny",
-                                   "scaling_fish_tree.nex"))
+                                   "fish_tree.nex"))
