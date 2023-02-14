@@ -27,9 +27,9 @@ If you use the dataset, please cite as:
 
 > Alewijnse, S. R. (2022) Dataset: Otolith-derived field metabolic rates (C_resp values), experience temperatures and stable isotopes (δ13C and δ18O). University of Southampton doi:10.5258/SOTON/D2292 [Dataset]
 
-Please also cite the original data sources.
+Please also cite the original data sources listed below.
 
-## Otolith stable isotopes
+### Otolith stable isotopes
 
 > Chung, M.-T., 2015. Functional and life-history traits in deep-sea fishes. University of Southampton, Southampton, United Kingdom.
 
