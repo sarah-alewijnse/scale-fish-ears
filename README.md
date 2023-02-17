@@ -18,12 +18,11 @@ For help with `renv` [click here](https://rstudio.github.io/renv/articles/renv.h
 
 ## Data
 
-Data can be downloaded from the [University of Southampton Institutional Repository](http://dx.doi.org/10.5258/SOTON/D2292). 
+Data can be downloaded from [figshare](https://doi.org/10.6084/m9.figshare.22110335.v2). 
 For reproducibilty, please download the dataset into the `data` directory.
-*NB:* Body mass data aren't currently present within the archived dataset.
-I'm working to rectify this ASAP.
+An earlier version of the data can also be found in the [University of Southampton Institutional Repository](http://dx.doi.org/10.5258/SOTON/D2292).
 
-If you use the dataset, please cite as:
+If you use the dataset before the paper is published, please cite as:
 
 > Alewijnse, S. R. (2022) Dataset: Otolith-derived field metabolic rates (C_resp values), experience temperatures and stable isotopes (δ13C and δ18O). University of Southampton doi:10.5258/SOTON/D2292 [Dataset]
 
